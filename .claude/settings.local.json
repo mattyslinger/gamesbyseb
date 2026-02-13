@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(du:*)",
+      "Bash(find:*)",
+      "Bash(wc:*)",
+      "Bash(npx tsc:*)",
+      "Bash(curl -s http://localhost:5000)",
+      "Bash(curl -s \"http://localhost:5000/client/src/game/GameCanvas.tsx\")",
+      "Bash(curl -s \"http://localhost:5000/src/App.tsx\")",
+      "Bash(git -C /home/runner/workspace log --oneline -10)",
+      "Bash(git -C /home/runner/workspace diff --name-only)",
+      "Bash(git -C /home/runner/workspace status)",
+      "Bash(git -C /home/runner/workspace diff client/src/App.tsx)",
+      "Bash(git -C /home/runner/workspace diff client/src/lib/stores/useGame.tsx)"
+    ]
+  }
+}
