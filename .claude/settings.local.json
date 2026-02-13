@@ -12,7 +12,8 @@
       "Bash(git -C /home/runner/workspace diff --name-only)",
       "Bash(git -C /home/runner/workspace status)",
       "Bash(git -C /home/runner/workspace diff client/src/App.tsx)",
-      "Bash(git -C /home/runner/workspace diff client/src/lib/stores/useGame.tsx)"
+      "Bash(git -C /home/runner/workspace diff client/src/lib/stores/useGame.tsx)",
+      "Bash(node -e:*)"
     ]
   }
 }
