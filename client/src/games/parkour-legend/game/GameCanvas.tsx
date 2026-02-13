@@ -16,8 +16,8 @@ import {
 import { checkFlagReached } from "./entities/flag";
 import { LEVELS } from "./levels/levelData";
 import { loadLevel } from "./levels/levelLoader";
-import { useGame } from "../lib/stores/useGame";
-import { useAudio } from "../lib/stores/useAudio";
+import { useGame } from "../stores/useGame";
+import { useAudio } from "../stores/useAudio";
 
 const CANVAS_W = 480;
 const CANVAS_H = 640;

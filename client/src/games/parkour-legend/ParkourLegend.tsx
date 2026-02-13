@@ -1,11 +1,12 @@
 import "@fontsource/inter";
 import GameCanvas from "./game/GameCanvas";
-import { useGame } from "./lib/stores/useGame";
-import { useAudio } from "./lib/stores/useAudio";
+import { useGame } from "./stores/useGame";
+import { useAudio } from "./stores/useAudio";
 import { useEffect, useRef } from "react";
 import { LEVELS } from "./game/levels/levelData";
+import { Link } from "wouter";
 
-function App() {
+function ParkourLegend() {
   const phase = useGame((s) => s.phase);
   const level = useGame((s) => s.level);
   const score = useGame((s) => s.score);
@@ -31,21 +32,26 @@ function App() {
   const levelName = LEVELS[Math.min(level, LEVELS.length - 1)]?.name ?? "";
 
   return (
-    <div
-      style={{
-        width: "100vw",
-        height: "100vh",
-        background: "#0d0d1a",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        position: "relative",
-        overflow: "hidden",
-        fontFamily: "Inter, sans-serif",
-        color: "#fff",
-      }}
-    >
+    <div className="game-fullscreen">
+      {/* Back link */}
+      <Link
+        href="/"
+        style={{
+          position: "absolute",
+          top: 12,
+          left: 12,
+          color: "#fff",
+          textDecoration: "none",
+          fontSize: 14,
+          fontWeight: 600,
+          opacity: 0.7,
+          zIndex: 20,
+          fontFamily: "Inter, sans-serif",
+        }}
+      >
+        &larr; Home
+      </Link>
+
       {/* HUD bar */}
       <div
         style={{
@@ -57,6 +63,8 @@ function App() {
           fontSize: 14,
           fontWeight: 600,
           letterSpacing: 1,
+          fontFamily: "Inter, sans-serif",
+          color: "#fff",
         }}
       >
         <span>LVL {level + 1}: {levelName}</span>
@@ -71,7 +79,7 @@ function App() {
         {/* Overlays */}
         {phase === "ready" && (
           <Overlay>
-            <h1 style={{ fontSize: 32, margin: 0 }}>Platform Climber</h1>
+            <h1 style={{ fontSize: 32, margin: 0 }}>Parkour Legend</h1>
             <p style={{ opacity: 0.7, marginTop: 8 }}>
               Arrow keys / WASD to move — Space to jump
             </p>
@@ -156,4 +164,4 @@ const btnStyle: React.CSSProperties = {
   cursor: "pointer",
 };
 
-export default App;
+export default ParkourLegend;
