@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
+import type { LevelConfig } from "../game/engine/types";
 
 export type GamePhase = "ready" | "playing" | "ended" | "won";
 
@@ -8,6 +9,7 @@ interface GameState {
   level: number;       // 0-indexed
   score: number;
   lives: number;
+  customLevel: LevelConfig | null;
 
   // Actions
   start: () => void;
@@ -17,6 +19,7 @@ interface GameState {
   addScore: (pts: number) => void;
   loseLife: () => boolean;   // returns true if lives remain
   resetForLevel: () => void;
+  setCustomLevel: (cfg: LevelConfig | null) => void;
 }
 
 export const useGame = create<GameState>()(
@@ -25,6 +28,7 @@ export const useGame = create<GameState>()(
     level: 0,
     score: 0,
     lives: 3,
+    customLevel: null,
 
     start: () => {
       set((state) => {
@@ -36,7 +40,7 @@ export const useGame = create<GameState>()(
     },
 
     restart: () => {
-      set(() => ({ phase: "ready", level: 0, score: 0, lives: 3 }));
+      set(() => ({ phase: "ready", level: 0, score: 0, lives: 3, customLevel: null }));
     },
 
     end: () => {
@@ -68,6 +72,10 @@ export const useGame = create<GameState>()(
 
     resetForLevel: () => {
       set({ lives: 3 });
+    },
+
+    setCustomLevel: (cfg: LevelConfig | null) => {
+      set({ customLevel: cfg });
     },
   })),
 );

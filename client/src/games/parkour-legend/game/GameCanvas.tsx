@@ -18,6 +18,7 @@ import { LEVELS } from "./levels/levelData";
 import { loadLevel } from "./levels/levelLoader";
 import { useGame } from "../stores/useGame";
 import { useAudio } from "../stores/useAudio";
+import { wogId } from "../wog-parkour";
 
 const CANVAS_W = 480;
 const CANVAS_H = 640;
@@ -35,7 +36,8 @@ export default function GameCanvas() {
   const loadCurrentLevel = useCallback(() => {
     const lvl = useGame.getState().level;
     levelRef.current = lvl;
-    const cfg = LEVELS[Math.min(lvl, LEVELS.length - 1)];
+    const custom = useGame.getState().customLevel;
+    const cfg = custom ?? LEVELS[Math.min(lvl, LEVELS.length - 1)];
     stateRef.current = loadLevel(cfg);
     // snap camera
     if (stateRef.current) {
@@ -48,7 +50,8 @@ export default function GameCanvas() {
   const respawnPlayer = useCallback(() => {
     const gs = stateRef.current;
     if (!gs) return;
-    const cfg = LEVELS[Math.min(levelRef.current, LEVELS.length - 1)];
+    const custom = useGame.getState().customLevel;
+    const cfg = custom ?? LEVELS[Math.min(levelRef.current, LEVELS.length - 1)];
     gs.player = createPlayer(cfg.playerStart.x, cfg.playerStart.y);
     gs.obstacles = [];
     // reset spawner timers
@@ -164,13 +167,19 @@ export default function GameCanvas() {
       if (checkFlagReached(gs.flag, gs.player)) {
         useAudio.getState().playSuccess();
         useGame.getState().addScore(1000);
-        const nextLvl = levelRef.current + 1;
-        if (nextLvl >= LEVELS.length) {
-          // won the game!
+        const custom = useGame.getState().customLevel;
+        if (custom) {
+          // Custom level: flag = win
           useGame.setState({ phase: "won" });
         } else {
-          useGame.getState().nextLevel();
-          loadCurrentLevel();
+          const nextLvl = levelRef.current + 1;
+          if (nextLvl >= LEVELS.length) {
+            // won the game!
+            useGame.setState({ phase: "won" });
+          } else {
+            useGame.getState().nextLevel();
+            loadCurrentLevel();
+          }
         }
       }
 
@@ -231,6 +240,7 @@ export default function GameCanvas() {
 
   return (
     <canvas
+      data-wog-id={wogId("GC", 1)}
       ref={canvasRef}
       width={CANVAS_W}
       height={CANVAS_H}
