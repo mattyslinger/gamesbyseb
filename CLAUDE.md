@@ -1,7 +1,10 @@
-# Parkour Legend — Project Guide
+# Seb's Arcade — Project Guide
+
+## About
+This is **Seb's Arcade** — a personal game portfolio for Sebby (age 9). It's his CV of games that he and his dad develop together over the coming years. The homepage is styled as a fun, child-friendly retro arcade with a cartoon 80's arcade machine. As new games are built, they get added to `client/src/games/registry.ts` and automatically appear as tiles on the homepage.
 
 ## Project Overview
-A 2D vertical-scrolling platformer game built as a Vite + React SPA served by an Express backend. The player climbs upward through a shaft, jumping between platforms, grabbing swings, and dodging obstacles to reach a flag.
+A multi-game arcade site built as a Vite + React SPA served by an Express backend. The first game is **Parkour Legend** — a 2D vertical-scrolling platformer where the player climbs upward through a shaft, jumping between platforms, grabbing swings, and dodging obstacles to reach a flag.
 
 ## Stack
 - **Frontend**: React 18, TypeScript, Vite, Zustand (state), Wouter (routing), Canvas 2D (rendering)
@@ -13,6 +16,11 @@ A 2D vertical-scrolling platformer game built as a Vite + React SPA served by an
 ```
 client/src/
   router.tsx                          — "/" → HomePage, "/games/parkour-legend" → game
+  pages/
+    HomePage.tsx                      — "Seb's Arcade" homepage with retro arcade styling
+    not-found.tsx                     — 404 page
+  games/
+    registry.ts                       — Game config (title, description, tile appearance)
   games/parkour-legend/
     ParkourLegend.tsx                 — Root component: routes between menu/editor/game views
     wog-parkour.ts                    — Project-specific wog-id prefixes (PK, LM, GC, LE, ET, OV)
@@ -50,6 +58,17 @@ Every UI element gets a `data-wog-id` attribute for deterministic element refere
 - Dynamic list items use letter suffixes: `wogId("LM", 6, "a")` → `"LM-006a"`
 
 ### WOG-ID Map
+**HM — HomePage** (`HomePage.tsx`)
+- HM-001: Page wrapper | HM-002: Content container | HM-003: Title | HM-004: Subtitle
+- HM-005: Game grid
+- HM-006{a-z}: Game links | HM-007{a-z}: Game cards | HM-008{a-z}: Thumbnails | HM-009{a-z}: Info sections
+- HM-010{a-z}: Game titles | HM-011{a-z}: Descriptions | HM-012{a-z}: Tag containers | HM-013{aa-zz}: Tags
+- HM-014{a-z}: Thumbnail+Info wrapper
+- HM-015: Arcade cabinet SVG | HM-016: Bio paragraph | HM-017: "My Games" section header | HM-018: Footer
+
+**NF — Not Found** (`not-found.tsx`)
+- NF-001: Page wrapper | NF-002: Card | NF-003: Card content | NF-004: Icon row | NF-005: Heading | NF-006: Description
+
 **PK — ParkourLegend root** (`ParkourLegend.tsx`)
 - PK-001: Menu view wrapper
 - PK-002: Home link (menu)

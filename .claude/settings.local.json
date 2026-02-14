@@ -14,7 +14,10 @@
       "Bash(git -C /home/runner/workspace diff client/src/App.tsx)",
       "Bash(git -C /home/runner/workspace diff client/src/lib/stores/useGame.tsx)",
       "Bash(node -e:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(npm run check:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npx vite build:*)"
     ]
   }
 }
